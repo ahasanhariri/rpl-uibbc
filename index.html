@@ -7,9 +7,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f6f7fa;--ink:#14161a;--mute:#5d6470;--b1:#86a6d3;--b2:#5a82bd;--btn:#2f5ea8;--btnink:#fff;
+:root{--bg:#f6f7fa;--ink:#14161a;--mute:#5d6470;--b1:#86a6d3;--b2:#5a82bd;--btn:#2f5ea8;--btnink:#fff;--flash:rgba(90,130,189,.28);--bolt:#f2b705;--glow:rgba(90,130,189,.9);
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root{--bg:#0e1015;--ink:#f2f4f8;--mute:#9aa3b2;--btn:#86a6d3;--btnink:#0e1015}}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1015;--ink:#f2f4f8;--mute:#9aa3b2;--btn:#86a6d3;--btnink:#0e1015;--flash:rgba(255,255,255,.2);--bolt:#fff3b0;--glow:rgba(160,190,255,.95)}}
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
 body{background:var(--bg);color:var(--ink);font-family:'Nunito Sans',system-ui,sans-serif;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;overflow:hidden}
@@ -22,6 +22,15 @@ p{margin:0 0 26px;color:var(--mute);font-size:18px;line-height:1.5}
 .btn:hover{transform:translateY(-2px)}
 .btn:focus-visible{outline:3px solid var(--b2);outline-offset:3px}
 .drops span{position:fixed;top:-30px;font-size:22px;opacity:.5;animation:fall linear infinite}
+
+.flash{position:fixed;inset:0;background:var(--flash);opacity:0;pointer-events:none;z-index:2;animation:flash 8s infinite}
+.bolt{position:fixed;top:0;width:clamp(90px,18vw,170px);height:auto;opacity:0;pointer-events:none;z-index:2;filter:drop-shadow(0 0 10px var(--glow)) drop-shadow(0 0 22px var(--glow));animation:flash 8s infinite}
+.bolt path{fill:var(--bolt)}
+.bolt.l{left:6%;transform:rotate(-8deg)}
+.bolt.r{right:8%;transform:scaleX(-1) rotate(-6deg);animation-delay:3.6s}
+.flash.b{animation-delay:3.6s}
+@keyframes flash{0%,86%,100%{opacity:0}87%{opacity:1}88%{opacity:.1}89%{opacity:.9}91%{opacity:0}}
+@keyframes shake{0%,100%{transform:translateX(0)}}
 @keyframes sway{0%,100%{transform:rotate(-7deg) translateY(0)}50%{transform:rotate(7deg) translateY(8px)}}
 @keyframes tear{0%{opacity:0;transform:translateY(0)}20%{opacity:1}100%{opacity:0;transform:translateY(46px)}}
 @keyframes pulse{0%,100%{box-shadow:0 6px 18px rgba(47,94,168,.28)}50%{box-shadow:0 6px 28px rgba(47,94,168,.5)}}
@@ -30,6 +39,10 @@ p{margin:0 0 26px;color:var(--mute);font-size:18px;line-height:1.5}
 </style>
 </head>
 <body>
+<div class="flash" aria-hidden="true"></div>
+<div class="flash b" aria-hidden="true"></div>
+<svg class="bolt l" viewBox="0 0 100 220" aria-hidden="true"><path d="M62 0 L18 112 L46 112 L30 220 L84 82 L54 82 L78 0 Z"/></svg>
+<svg class="bolt r" viewBox="0 0 100 220" aria-hidden="true"><path d="M62 0 L18 112 L46 112 L30 220 L84 82 L54 82 L78 0 Z"/></svg>
 <div class="drops" aria-hidden="true">
 <span style="left:8%;animation-duration:7s;animation-delay:0s">💧</span>
 <span style="left:24%;animation-duration:9s;animation-delay:2s">💧</span>
